@@ -75,6 +75,7 @@ endif
 ifeq ($(USE_NETCDF), TRUE)
   USERSuffix = .NC
   DEFINES += -DREMORA_USE_NETCDF
+  PKG_CONFIG_PATH  := $(PKG_CONFIG_PATH):$(NETCDF_DIR)/lib/pkgconfig
   includes += $(shell pkg-config --cflags netcdf)
   LIBRARIES += $(shell pkg-config --libs netcdf)
 #  includes += $(shell pkg-config --cflags netcdf-cxx4_parallel)
@@ -83,6 +84,11 @@ endif
 
 #turn on MOAB macro define
 ifeq ($(USE_MOAB), TRUE)
+  ifeq ($(USE_NETCDF), TRUE)
+    USERSuffix = .MB.NC
+  else
+    USERSuffix = .MB
+  endif
   DEFINES += -DREMORA_USE_MOAB
   PKG_CONFIG_PATH  := $(PKG_CONFIG_PATH):$(MOAB_DIR)/lib/pkgconfig
   includes += $(shell pkg-config --cflags MOAB)
