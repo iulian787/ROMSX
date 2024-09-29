@@ -7,5 +7,6 @@
 #define REMORA_MOAB_H
 
 #include "moab/Core.hpp"
+#include "moab/ParallelComm.hpp"
 
 #endif /* REMORA_MOAB_H */
